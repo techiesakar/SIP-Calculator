@@ -12,6 +12,11 @@ const finalBalanceOutput = document.getElementById("finalBalanceOutput");
 const investedOutput = document.getElementById("investedOutput");
 const totalProfitOutput = document.getElementById("totalProfitOutput");
 
+// Alert Box
+const alertBox = document.getElementById("alertBox");
+const closeAlert = document.getElementById("closeAlert");
+const alertContent = document.getElementById("alertContent");
+
 // Init Values
 let sipAmount = 1000;
 let prevBalance;
@@ -123,13 +128,46 @@ const calculateSIP = () => {
 // Event listenter for Input Field
 let formControl = document.querySelectorAll(".form-control");
 let whenInputValueChange = (e) => {
+  // First turning off alert box
+  alertBox.classList.add("hidden");
+  let status = true;
   sipAmount = Number(sipInputField.value);
   sipInputSlider.value = sipAmount;
   rate = Number(rateInputField.value);
   rateInputSlider.value = rate;
+
   term = Number(termInputField.value);
   termInputSlider.value = term;
-  calculateSIP();
+
+  // Exception Check
+  if (term > 50) {
+    status = false;
+    term = 50;
+    termInputField.value = 50;
+    openAlertBox("Year cannot be more than 50");
+  } else {
+    status = true;
+  }
+
+  if (sipAmount > 50000) {
+    status = false;
+    sipAmount = 50000;
+    sipInputField.value = 50000;
+    openAlertBox("SIP amount cannot exceeds 50000");
+  } else {
+    status = true;
+  }
+
+  if (rate > 50) {
+    status = false;
+    rate = 50;
+    rateInputField.value = 50;
+    openAlertBox("Interest cannot exceeds 50%");
+  } else {
+    status = true;
+  }
+
+  if (status == true) calculateSIP();
   updateTextContent();
 };
 
@@ -140,6 +178,8 @@ formControl.forEach((item) => {
 // Event listenter for Slider
 let sliderControl = document.querySelectorAll(".slider");
 let whenSliderValueChange = (e) => {
+  // Turning off alert
+  alertBox.classList.add("hidden");
   sipInputField.value = sipInputSlider.value;
   sipAmount = Number(sipInputField.value);
   rateInputField.value = rateInputSlider.value;
@@ -164,20 +204,33 @@ calculateSIP();
 
 var updateTextContent = () => {
   investedOutput.textContent = totalInvested.toLocaleString("en-us", {
-    minimumFractionDigits: 2,
-    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
   totalProfitOutput.textContent = (balance - totalInvested).toLocaleString(
     "en-us",
     {
       minimumFractionDigits: 2,
-      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }
   );
   finalBalanceOutput.textContent = balance.toLocaleString("en-us", {
     minimumFractionDigits: 2,
-    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
 };
 
 updateTextContent();
+var openAlertBox = (msg) => {
+  alertBox.classList.remove("hidden");
+  alertContent.textContent = msg;
+};
+var closeAlertBox = () => {
+  closeAlert.addEventListener("click", () => {
+    alertBox.classList.add("hidden");
+  });
+};
+
+closeAlert.addEventListener("click", () => {
+  alertBox.classList.add("hidden");
+});

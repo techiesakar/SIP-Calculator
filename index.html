@@ -1,162 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Systematic Investment Plan (SIP) helps you to calculate and find your projected profits and investmens with proper statement of each cycle"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Systematic Investment Plan (SIP) helps you to calculate and find your projected profits and investmens with proper statement of each cycle">
-
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
-    rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js" defer></script>
 
-  <style>
-    * {
-      --primary: rgb(230, 230, 230);
-      --secondary: cornflowerblue;
-      font-family: "Poppins", sans-serif;
-      scrollbar-width: thin;
-      scrollbar-color: var(--secondary) var(--primary);
-    }
+    <style>
+      * {
+        --primary: rgb(230, 230, 230);
+        --secondary: cornflowerblue;
+        font-family: "Poppins", sans-serif;
+        scrollbar-width: thin;
+        scrollbar-color: var(--secondary) var(--primary);
+      }
 
+      /* Chrome, Edge, and Safari */
+      *::-webkit-scrollbar {
+        width: 12px;
+      }
 
-    /* Chrome, Edge, and Safari */
-    *::-webkit-scrollbar {
-      width: 12px;
-    }
+      *::-webkit-scrollbar-track {
+        background: var(--primary);
+        border-radius: 5px;
+      }
 
-    *::-webkit-scrollbar-track {
-      background: var(--primary);
-      border-radius: 5px;
-    }
+      *::-webkit-scrollbar-thumb {
+        background-color: var(--secondary);
+        border-radius: 14px;
+        border: 3px solid var(--primary);
+      }
 
-    *::-webkit-scrollbar-thumb {
-      background-color: var(--secondary);
-      border-radius: 14px;
-      border: 3px solid var(--primary);
-    }
+      .tablinks.active {
+        color: rgb(29 78 216);
+        background-color: rgb(243 244 246);
+      }
+    </style>
+    <title>SIP Calculator</title>
+  </head>
 
-    .tablinks.active {
-      color: rgb(29 78 216);
-      background-color: rgb(243 244 246);
-    }
-  </style>
-  <title>SIP Calculator</title>
-</head>
-
-<body>
-  <div class="container-fluid">
-    <div class="wrapper mt-[100px] mx-auto max-w-screen-xl">
-      <div class="w-full">
-        <h1 id="tools-title" class="text-center text-3xl font-bold text-blue-500 py-3 mb-2 rounded">
-          SIP Calculator
-        </h1>
-      </div>
-     
-      <div id="emiContainer" class="emi-container gap-4 h-full flex justify-between flex-wrap">
-         
-        <form id="loanForm" class="p-12 rounded shadow-lg border w-full lg:w-[60%]">
-          <div class="sip-amt mb-3">
-           <label>SIP Amount</label>
-            <div>
-              <input class="w-full  slider" id="sipSlider" type="range" name="" min="1000" max="5000000" step="500" />
-            </div>
-            <div>
-              <input id="sip-input" placeholder="4,000,000" class="w-full form-control p-2 border border-gray-200" type="text" min="1000" max="5000000" step="500" 
-                value="1000" />
-            </div>
-          </div>
-          <div class="sip-int mb-3">
-      <label>Expected Interest (P.A)</label>
-            <div>
-              <input id="rateSlider" class="w-full  slider" type="range" name="" min="1" max="20" step="0.1" />
-            </div>
-            <div>
-              <input id="rate-input" placeholder="10" class="w-full form-control p-2 border border-gray-200" type="text"
-                value="10" />
-            </div>
-          </div>
-          <div class="sip-term mb-3">
-        <label>Years</label>
-            <div>
-              <input id="termSlider" class="w-full  slider" type="range" name="" id="" min="1" max="20" />
-            </div>
-            <div>
-              <input id="term-input" placeholder="14" class="w-full form-control p-2 border border-gray-200" type="text"
-                value="5" />
-            </div>
-          </div>
-        </form>
-        <!-- #sipForm -->
-     
-        <div id="sipContent" class="p-8 bg-white shadow-lg border w-full lg:w-[38%] leading-[50px]">
-         
-            <div class="flex justify-between border-b items-center">
-                <div>Investment Period:</div>
-                <select id="sip-period"
-                  class="h-[40px] form-select appearance-none block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  aria-label="Default select example">
-                  <option selected value="1">Yearly</option>
-                  <option value="2">Semi Annualy</option>
-                  <option value="4">Quaterly</option>
-                  <option value="12">Monthly</option>
-                </select>
-              </div>
-          <div class="flex justify-between border-b">
-            <div>Total Invested</div>
-            <div>
-              <span>Rs. </span>
-              <span id="investedOutput" class="font-bold text-blue-500"></span>
-            </div>
-          </div>
-          <div class="flex justify-between">
-            <div>Total Profit</div>
-            <div>
-              <span>Rs. </span>
-              <span id="totalProfitOutput"></span>
-            </div>
-          </div>
-          <div class="flex justify-between">
-            <div class="font-bold">Final Balance</div>
-            <div>
-              <span>Rs. </span>
-              <span id="finalBalanceOutput"></span>
-            </div>
-          </div>
+  <body>
+    <div class="container-fluid">
+      <div class="wrapper mt-[100px] mx-auto max-w-screen-xl">
+        <div class="w-full">
+          <h1
+            id="tools-title"
+            class="text-center text-3xl font-bold text-blue-500 py-3 mb-2 rounded"
+          >
+            SIP Calculator
+          </h1>
         </div>
-      
-     <!-- #sipContent -->
-      
+
+        <div
+          id="emiContainer"
+          class="emi-container gap-4 h-full flex justify-between flex-wrap"
+        >
+          <form
+            id="loanForm"
+            class="p-12 rounded shadow-lg border w-full lg:w-[60%]"
+          >
+            <div class="sip-amt mb-3">
+              <label>SIP Amount</label>
+              <div>
+                <input
+                  class="w-full slider"
+                  id="sipSlider"
+                  type="range"
+                  min="1000"
+                  max="50000"
+                  step="500"
+                />
+              </div>
+              <div>
+                <input
+                  id="sip-input"
+                  placeholder="4,000,000"
+                  class="w-full form-control p-2 border border-gray-200"
+                  type="number"
+                  min="1000"
+                  max="50000"
+                  step="500"
+                  value="1000"
+                />
+              </div>
+            </div>
+            <div class="sip-int mb-3">
+              <label>Expected Interest (P.A)</label>
+              <div>
+                <input
+                  id="rateSlider"
+                  class="w-full slider"
+                  type="range"
+                  name=""
+                  min="1"
+                  max="50"
+                  step="0.1"
+                />
+              </div>
+              <div>
+                <input
+                  id="rate-input"
+                  placeholder="10"
+                  class="w-full form-control p-2 border border-gray-200"
+                  type="number"
+                  value="10"
+                  max="50"
+                />
+              </div>
+            </div>
+            <div class="sip-term mb-3">
+              <label>Years</label>
+              <div>
+                <input
+                  id="termSlider"
+                  class="w-full slider"
+                  type="range"
+                  name=""
+                  id=""
+                  min="1"
+                  max="50"
+                />
+              </div>
+              <div>
+                <input
+                  id="term-input"
+                  placeholder="14"
+                  class="w-full form-control p-2 border border-gray-200"
+                  type="number"
+                  step="1"
+                  value="5"
+                  max="50"
+                />
+              </div>
+            </div>
+            <div
+              id="alertBox"
+              class="bg-red-100 border hidden border-red-400 text-red-700 px-4 py-3 rounded relative"
+              role="alert"
+            >
+              <strong class="font-bold">Oops !</strong>
+              <span id="alertContent" class="block sm:inline"
+                >Something seriously bad happened.</span
+              >
+              <span
+                id="closeAlert"
+                class="absolute top-0 bottom-0 right-0 px-4 py-3"
+              >
+                <svg
+                  class="fill-current h-6 w-6 text-red-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path
+                    d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+          </form>
+          <!-- #sipForm -->
+
+          <div
+            id="sipContent"
+            class="p-8 bg-white shadow-lg border w-full lg:w-[38%] leading-[50px]"
+          >
+            <div class="flex justify-between border-b items-center">
+              <div>Investment Period:</div>
+              <select
+                id="sip-period"
+                class="h-[40px] form-select appearance-none block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                aria-label="Default select example"
+              >
+                <option selected value="1">Yearly</option>
+                <option value="2">Semi Annualy</option>
+                <option value="4">Quaterly</option>
+                <option value="12">Monthly</option>
+              </select>
+            </div>
+            <div class="flex justify-between border-b">
+              <div>Total Invested</div>
+              <div>
+                <span>Rs. </span>
+                <span
+                  id="investedOutput"
+                  class="font-bold text-blue-500"
+                ></span>
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <div>Total Profit</div>
+              <div>
+                <span>Rs. </span>
+                <span id="totalProfitOutput"></span>
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="font-bold">Final Balance</div>
+              <div>
+                <span>Rs. </span>
+                <span id="finalBalanceOutput"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- #sipContent -->
+        </div>
+        <!-- #sipContainer -->
       </div>
-      <!-- #sipContainer -->
     </div>
-  </div>
-  <div id="tableWrapper" class="table-wrapper mx-auto max-w-screen-xl mt-14">
-    <div class="relative w-full shadow-md sm:rounded-lg overflow-y-auto h-96">
-      <table id="table-schedule" class="w-full relative text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead
-          class="text-xs thead sticky top-0 w-full text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
+    <div id="tableWrapper" class="table-wrapper mx-auto max-w-screen-xl mt-14">
+      <div class="relative w-full shadow-md sm:rounded-lg overflow-y-auto h-96">
+        <table
+          id="table-schedule"
+          class="w-full relative text-sm text-left text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs thead sticky top-0 w-full text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          ></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <!-- #tableWrapper -->
-  <footer>
-    
-<footer class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
-  <p class="text-sm text-gray-500 sm:text-center dark:text-gray-400 text-center py-3">Made By <a target="_blank" href="https://github.com/techiesakar/" class="hover:underline">TechieSakar</a>. All Rights Reserved.
-  </p>
- 
-</footer>
-
-  </footer>
-  </div>
-</body>
-
+    <!-- #tableWrapper -->
+    <footer class="p-4 bg-white rounded-lg shadow md:p-6 dark:bg-gray-800">
+      <p class="text-sm text-gray-500 text-center dark:text-gray-400 py-3">
+        Made By
+        <a
+          target="_blank"
+          href="https://github.com/techiesakar/"
+          class="transition font-bold text-blue-500 hover:text-blue-600"
+          >TechieSakar</a
+        >. All Rights Reserved.
+      </p>
+    </footer>
+  </body>
 </html>
